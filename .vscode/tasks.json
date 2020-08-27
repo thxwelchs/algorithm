@@ -8,6 +8,7 @@
             "args": [
                 "-g",
                 "${file}",
+                "-std=c++14",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.out",
             ],
