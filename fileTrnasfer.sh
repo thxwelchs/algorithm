@@ -1,15 +1,18 @@
 #!/bin/bash
+
 set -e
 
+TMP_MODE=$1
 
 map="{\"백준\": \"b\", \"프로그래머스\": \"p\", \"leetcode\": \"lc\", \"etc\": \"e\"}"
+INFO_REGEX="(^(백준|프로그래머스|leetcode)[ ][0-9]+[ ][0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ_-]+$)|(^(etc)[ ][0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ_-]+$)"
 
-
-ls -d ./solving/*/ | grep -v '.out.*'  | while read line
+find ./solving -name "*.cpp" | while read line
 do
-    # echo $line | sed -e 's/.\/solving\///'
-    origin="${line}main.cpp"
-    q_info=$(grep "//" $origin | head -n 1 | sed -e 's/\/\///')
+    origin="${line}"
+
+    q_info=$(grep "//" $origin | head -n 1 | sed -e 's/\/\///' | sed -e 's/^[ \t]*//')
+    if [[ ! "$q_info" =~ $INFO_REGEX ]]; then continue; fi
 
     read -ra q_info <<< "$q_info" 
 
@@ -43,8 +46,23 @@ do
         done
     fi
 
+    # if $TMP_MODE ; then
+    #     cp $origin $target
+
+    #     $origin 
+    # fi
+
     mv $origin $target
     if [ -f "$target" ]; then
-        rm -r $line
+        rm $origin
+        parentDir="$(dirname "$line")"
+        if [ "$parentDir" == "./solving" ]; then
+            continue;
+        fi
+
+        count=$(find $parentDir -maxdepth 1 -name  "*.cpp" | wc -l)
+        if [ $count -eq 0 ]; then 
+            rm -r $parentDir
+        fi
     fi
 done
