@@ -35,10 +35,10 @@ void permutation(int arr[], int p[], bool visited[], int n, int r, int depth) {
 
 int main() {
 
-    int arr[3] = {1, 2, 3};
-    int output[3] = {};
-    bool visited[3] = {};
-    permutation(arr, output, visited, 3, 3, 0);
+    int arr[4] = {1, 2};
+    int output[4] = {};
+    bool visited[4] = {};
+    permutation(arr, output, visited, 4, 4, 0);
     
     return 0;
 }

@@ -5,7 +5,7 @@ set -e
 TMP_MODE=$1
 
 map="{\"백준\": \"b\", \"프로그래머스\": \"p\", \"leetcode\": \"lc\", \"etc\": \"e\"}"
-INFO_REGEX="(^(백준|프로그래머스|leetcode)[ ][0-9]+[ ][0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ_-]+$)|(^(etc)[ ][0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ_-]+$)"
+INFO_REGEX="(^(백준|프로그래머스|leetcode)[ ][0-9]+[ ]([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ_-]|[ ])+$)|(^(etc)[ ]([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ_-]|[ ])+$)"
 
 find ./solving -name "*.cpp" | while read line
 do
@@ -54,15 +54,15 @@ do
 
     mv $origin $target
     if [ -f "$target" ]; then
-        rm $origin
-        parentDir="$(dirname "$line")"
-        if [ "$parentDir" == "./solving" ]; then
-            continue;
-        fi
+        ./fileCleaner.sh
+        # parentDir="$(dirname "$line")"
+        # if [ "$parentDir" == "./solving" ]; then
+        #     continue;
+        # fi
 
-        count=$(find $parentDir -maxdepth 1 -name  "*.cpp" | wc -l)
-        if [ $count -eq 0 ]; then 
-            rm -r $parentDir
-        fi
+        # count=$(find $parentDir -maxdepth 1 -name  "*.cpp" | wc -l)
+        # if [ $count -eq 0 ]; then 
+        #     rm -r $parentDir
+        # fi
     fi
 done
