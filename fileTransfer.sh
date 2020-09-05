@@ -2,6 +2,8 @@
 
 set -e
 
+MODE=study
+
 TMP_MODE=$1
 
 map="{\"백준\": \"b\", \"프로그래머스\": \"p\", \"leetcode\": \"lc\", \"etc\": \"e\"}"
