@@ -3,6 +3,8 @@
 
 using namespace std;
 
+// 미 해결
+// 백준 카누 선수 문제와 비슷한 문제라서 도전
 // 백준 7453 합이 0인 네 정수
 // https://www.acmicpc.net/problem/7453
 const int MAX_LEN = 4000;

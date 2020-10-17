@@ -55,16 +55,16 @@ do
     # fi
 
     mv $origin $target
-    if [ -f "$target" ]; then
-        ./fileCleaner.sh
-        # parentDir="$(dirname "$line")"
-        # if [ "$parentDir" == "./solving" ]; then
-        #     continue;
-        # fi
+    # if [ -f "$target" ]; then
+    #     # ./fileCleaner.sh
+    #     # parentDir="$(dirname "$line")"
+    #     # if [ "$parentDir" == "./solving" ]; then
+    #     #     continue;
+    #     # fi
 
-        # count=$(find $parentDir -maxdepth 1 -name  "*.cpp" | wc -l)
-        # if [ $count -eq 0 ]; then 
-        #     rm -r $parentDir
-        # fi
-    fi
+    #     # count=$(find $parentDir -maxdepth 1 -name  "*.cpp" | wc -l)
+    #     # if [ $count -eq 0 ]; then 
+    #     #     rm -r $parentDir
+    #     # fi
+    # fi
 done
