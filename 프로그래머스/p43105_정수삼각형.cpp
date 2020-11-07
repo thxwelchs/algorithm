@@ -12,8 +12,9 @@ int dp[501][501];
 int solution(vector<vector<int>> triangle) {
     int answer = 0;
     dp[0][0] = triangle[0][0];
+    int triangleLen = triangle.size();
 
-    for(int i = 1; i < triangle.size(); i++) {
+    for(int i = 1; i < triangleLen; i++) {
         vector<int> t = triangle[i];
         for(int j = 0; j < t.size(); j++) {
             if(j > 0) {
@@ -24,8 +25,8 @@ int solution(vector<vector<int>> triangle) {
         }
     }
 
-    for(int i = 0; i < triangle.size(); i++) {
-        int d = dp[triangle.size() - 1][i];
+    for(int i = 0; i < triangleLen; i++) {
+        int d = dp[triangleLen - 1][i];
         if(d > answer) answer = d;
     }
 
