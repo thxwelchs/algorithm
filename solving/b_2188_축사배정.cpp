@@ -4,6 +4,10 @@
 
 using namespace std;
 
+// 미해결
+// 백준 2188 축사 배정
+// https://www.acmicpc.net/problem/2188
+
 int n, m;
 
 const int MAX = 201;
