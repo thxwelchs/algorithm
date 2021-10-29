@@ -23,7 +23,7 @@ int go(int x, int y) { // go(x,y) = x번째 술을 먹는데, x번째 술을 먹
     int ma = 0;
 
     if(y == 1) {
-        //  O    O    X    O
+        //  O    O    X    O 
         // x-3  x-2  x-1   x
 
         //  X    O    X    O
@@ -37,7 +37,7 @@ int go(int x, int y) { // go(x,y) = x번째 술을 먹는데, x번째 술을 먹
         ma = max({ma, go(x-3, 1), go(x-3, 2)});
         ma = max({ma, go(x-2, 1), go(x-2, 2)});
 
-        // 밑에 반복문으로 하면 O(n^2)
+        // 밑에 반복문으로 1부터 x-2까지 모두 고려해서 하면 O(n^2) 시간복잡도를 가지긴 하지만, 이 문제에서 주어지는 N 최대범위와 시간제한으로는 풀리긴한다.
         // for(int i = 1; i <= x - 2; i++) {
         //     ma = max({ma, go(x-2, 1), go(x-2, 2)});
         // }
