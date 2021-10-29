@@ -1,82 +1,70 @@
 #include <bits/stdc++.h>
 
-const int SIZE = 30;
-const int INF = 2000000000;
-
 using namespace std;
 
-typedef long long int ll;
-
 struct Trie {
-	Trie *node[SIZE];
-	bool is_finish, is_child;
+    bool finish;
+    Trie *children[26];
 
-	Trie() {
-		fill(node, node + SIZE, nullptr);
-		is_finish = is_child = false;
-	}
+    Trie() : finish(false) {
+		fill(children, children + 26, nullptr);
+    }
 
-	~Trie() {
-		for (int i = 0; i < SIZE; i++) {
-			if (node[i])
-				delete node[i];
-		}
-	}
+    ~Trie() {
+        for (int i = 0; i < 26; i++) {
+            if (children[i]) delete children[i];
+        }
+    }
 
-	void insert(const string &word, int word_size, int index) {
-		if (index >= word_size) {
-			is_finish = true;
-			return;
-		}
+    void insert(const char *c) {
+        if (*c == 0) {
+            finish = 1;
+            return;
+        }
 
-		int word_index = word.at(index) - 'a';
-		if (node[word_index] == NULL) {
-			node[word_index] = new Trie();
-			is_child = true;
-		}
-		node[word_index]->insert(word, word_size, index + 1);
-	}
+        int idx = *c- 'a';
 
-	bool find(const string &word, int word_size, int index) {
-		bool res = false;
-		if (index >= word_size) {
-			if (is_finish)
-				return true;
-			else
-				return false;
-		}
-		else if (index < word_size) {
-			int word_index = word.at(index) - 'a';
-			if (node[word_index] == NULL || is_finish == true || is_child == false) {
-				return false;
-			}
-
-			res = node[word_index]->find(word, word_size, index + 1);
+        if (!children[idx]) {
+			children[idx] = new Trie();
 		}
 
-		return res;
-	}
+        children[idx] -> insert(c + 1);
+    }
+
+    bool find(const char *c) {
+        if (*c == 0) return finish;
+
+        int idx = *c- 'a';
+
+        if (!children[idx]) {
+			return false;
+		}
+
+        bool ret = children[idx] -> find(c+ 1);
+
+        return ret;
+    }
 };
 
-int main(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
+int main() {
+    int N, M; 
+	cin >> N >> M;
 
-	Trie root;
-	int N, M; cin >> N >> M;
-	for (int i = 0; i < N; i++) {
-		string word; cin >> word;
-		root.insert(word, word.size(), 0);
-	}
+    Trie *root = new Trie();
 
-	int cnt = 0;
-	for (int i = 0; i < M; i++) {
-		string word; cin >> word;
-		if (root.find(word, word.size(), 0)) {
-			cnt++;
-		}
-	}
+    while (N--) {
+		char w[501];
+		cin >> w;
 
-	cout << cnt;
+        root -> insert(w);
+    }
+    int ans = 0;
 
+    while (M--) {
+        char w[501]; 
+		cin >> w;
+        if (root -> find(w)) ans++;
+    }
+
+	cout << ans;
 }
